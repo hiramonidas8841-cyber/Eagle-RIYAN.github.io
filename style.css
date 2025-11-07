@@ -1,9 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+* {margin:0; padding:0; box-sizing:border-box;}
+
 body {
-  background-color: #0a0a0a;
-  color: #00bfff;
-  font-family: 'Poppins', sans-serif;
+  font-family:'Poppins',sans-serif;
+  background: radial-gradient(circle at center, #050505 60%, #000000);
+  color:#00bfff;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-button:hover {
-  box-shadow: 0 0 20px #00bfff;
+.container {
+  width:90%;
+  max-width:1000px;
+  text-align:center;
+  position:relative;
 }
+
+.logo {
+  font-size:2rem;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+  color:#00bfff;
+  text-shadow:0 0 15px #00bfff;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {text-shadow:0 0 10px #00bfff;}
+  to {text-shadow:0 0 25px #00ffff;}
+}
+
+.controller {
+  width:70px;
+  filter:drop-shadow(0 0 10px #00bfff);
+  transition:0.3s;
+}
+.controller:hover {transform:scale(1.1); filter:drop-shadow(0 0 25px #00ffff);}
+
+nav {
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-bottom:30px;
+}
+
+button {
+  background:none;
+  border:1px solid #00bfff;
+  color:#00bfff;
+  padding:10px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:1rem;
+}
+button:hover {
+  background:#00bfff;
+  color:#000;
+  box-shadow:0 0 20px #00bfff;
+}
+
+.slide {
+  display:none;
+  animation:fade 0.8s;
+}
+.active {display:block;}
+
+@keyframes fade {from{opacity:0;} to{opacity:1;}}
+.highlight {color:#fff; text-shadow:0 0 10px #00bfff;}
+
+#musicBtn {
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  background:none;
+  border:1px solid #00bfff;
+  color:#00bfff;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  font-size:1.2rem;
+}
+#musicBtn:hover {
+  background:#00bfff;
+  color:#000;
+  box-shadow:0 0 20px #00bfff;
+}
+
+footer {
+  position:absolute;
+  bottom:10px;
+  left:0;
+  width:100%;
+  text-align:center;
+  font-size:0.8rem;
+  color:#00bfff;
+}
+a {color:#00bfff; text-decoration:none;}
+a:hover {color:#fff;}
