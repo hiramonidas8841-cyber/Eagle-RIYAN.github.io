@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Eagle_RIYAN — Gamer • Robotics • Coding</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-1: #05050b;
+    --bg-2: #0a0a14;
+    --neon-blue: #00e6ff;
+    --neon-purple: #8a2bff;
+    --glass: rgba(255,255,255,0.03);
+    --glass-strong: rgba(255,255,255,0.06);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+  html,body{height:100%}
+  body{
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(138,43,255,0.06), transparent),
+                radial-gradient(900px 500px at 90% 80%, rgba(0,230,255,0.04), transparent),
+                linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    color:#eaeef2;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* Header */
+  header{
+    position:fixed; top:18px; left:50%; transform:translateX(-50%);
+    z-index:60; width:calc(100% - 40px);
+    display:flex; align-items:center; justify-content:center;
+    gap:18px; pointer-events:auto;
+    backdrop-filter: blur(6px);
+  }
+
+  .brand {
+    display:flex; gap:14px; align-items:center;
+    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    padding:10px 18px; border-radius:999px; box-shadow: 0 6px 30px rgba(10,10,15,0.6);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .logo-wrap{
+    width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+    background: linear-gradient(135deg, rgba(0,230,255,0.06), rgba(138,43,255,0.06));
+    box-shadow: 0 0 18px rgba(138,43,255,0.06), inset 0 -6px 18px rgba(0,0,0,0.6);
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+
+  .logo-wrap:hover{ transform: scale(1.06) rotate(-6deg);
+    box-shadow:0 0 30px rgba(138,43,255,0.18), 0 0 40px rgba(0,230,255,0.12);
+  }
+
+  /* controller SVG */
+  .controller{
+    width:46px; height:46px; filter: drop-shadow(0 6px 20px rgba(138,43,255,0.12)) drop-shadow(0 10px 30px rgba(0,230,255,0.10));
+    transition: filter .3s ease, transform .3s ease;
+  }
+  .logo-wrap:hover .controller{ transform: translateY(-4px) scale(1.02);
+    filter: drop-shadow(0 10px 36px rgba(138,43,255,0.25)) drop-shadow(0 10px 48px rgba(0,230,255,0.18));
+  }
+
+  .brand-title{
+    display:flex; flex-direction:column; align-items:flex-start; line-height:1;
+    color: #eaf6ff;
+  }
+  .brand-title .top{ font-weight:700; letter-spacing:0.6px; font-size:16px;
+    background: linear-gradient(90deg,var(--neon-blue),var(--neon-purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .brand-title .sub{ font-size:11px; color:rgba(230,230,235,0.6); margin-top:2px;}
+
+  /* navigation */
+  nav{ position:fixed; top:110px; left:50%; transform:translateX(-50%); z-index:50; display:flex; gap:10px }
+  .nav-btn{
+    padding:10px 16px; border-radius:999px; border:0; cursor:pointer; font-weight:600;
+    background: linear-gradient(90deg, rgba(0,230,255,0.08), rgba(138,43,255,0.08));
+    color:#eaf6ff; transition: all .28s ease; border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 6px 18px rgba(3,6,15,0.6);
+  }
+  .nav-btn:hover{
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 36px rgba(0,230,255,0.06), 0 8px 28px rgba(138,43,255,0.06);
+    text-shadow: 0 0 10px rgba(0,230,255,0.12);
+  }
+
+  /* slides container */
+  .viewport{
+    position: absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  }
+  .slides{
+    display:flex; width:400vw; transition: transform 900ms cubic-bezier(.2,.9,.3,1);
+    height:100vh;
+  }
+  section{
+    width:100vw; height:100vh; padding:110px 36px 80px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; gap:16px; position:relative;
+  }
+
+  /* card look for content */
+  .card{
+    width:min(980px,92%); padding:36px; border-radius:16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 12px 40px rgba(2,6,12,0.6);
+    backdrop-filter: blur(6px);
+  }
+
+  h1{ font-size:32px; margin-bottom:6px;
+      background: linear-gradient(90deg,var(--neon-blue),var(--neon-purple));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  p{ color: rgba(235,240,246,0.85); font-size:16px; line-height:1.6 }
+
+  /* project bullets */
+  .project-list{ text-align:left; margin-top:10px; display:grid; gap:10px }
+  .project{
+    padding:14px; border-radius:12px; display:flex; gap:14px; align-items:flex-start;
+    background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.02);
+  }
+  .dot{
+    width:12px; height:12px; border-radius:50%;
+    background: linear-gradient(180deg,var(--neon-blue),var(--neon-purple));
+    box-shadow:0 6px 18px rgba(138,43,255,0.12), 0 8px 26px rgba(0,230,255,0.06);
+    margin-top:6px;
+  }
+
+  /* hobbies grid */
+  .hobbies{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:12px }
+  .hobby{
+    width:160px; height:120px; border-radius:12px; display:flex; flex-direction:column; gap:8px;
+    align-items:center; justify-content:center; background:linear-gradient(135deg,rgba(255,255,255,0.01),rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .hobby:hover{
+    transform:translateY(-8px);
+    box-shadow: 0 18px 50px rgba(0,230,255,0.06), 0 8px 28px rgba(138,43,255,0.06);
+  }
+  .h-emoji{ font-size:32px }
+
+  /* contact links */
+  .contact-list{ display:flex; flex-direction:column; gap:10px; align-items:center; margin-top:12px }
+  .contact-item{
+    padding:10px 18px; border-radius:999px; background:linear-gradient(90deg, rgba(0,230,255,0.06), rgba(138,43,255,0.06));
+    border:1px solid rgba(255,255,255,0.03); width:min(520px,86%); text-align:center;
+  }
+  .contact-item a{ color: #eaf6ff; font-weight:600; text-decoration:none}
+
+  /* music control */
+  .music-control{
+    position:fixed; right:22px; bottom:22px; z-index:70;
+    width:68px; height:68px; border-radius:50%; border:0; cursor:pointer;
+    background: linear-gradient(135deg,var(--neon-blue),var(--neon-purple));
+    color:#000; font-weight:700; font-size:20px;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,230,255,0.06);
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .music-control:hover{ transform:scale(1.06); box-shadow:0 18px 60px rgba(0,230,255,0.12),0 8px 30px rgba(138,43,255,0.08); }
+
+  /* footer small */
+  .footer-note{
+    position:fixed; left:18px; bottom:12px; color:rgba(230,230,240,0.5); font-size:12px;
+    backdrop-filter: blur(6px); padding:6px 8px; border-radius:8px;
+  }
+
+  /* responsive adjustments */
+  @media (max-width:720px){
+    .brand-title .top{ font-size:14px }
+    nav{ top:86px }
+    h1{ font-size:26px }
+    .logo-wrap{ width:56px; height:56px }
+    .controller{ width:38px; height:38px }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER / BRAND -->
+  <header>
+    <div class="brand" aria-hidden>
+      <div class="logo-wrap" title="Eagle_RIYAN">
+        <!-- Inline PS5-ish controller SVG (stylized) -->
+        <svg class="controller" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+          <!-- base -->
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#00e6ff"/>
+              <stop offset="1" stop-color="#8a2bff"/>
+            </linearGradient>
+            <filter id="fGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <g filter="url(#fGlow)">
+            <path d="M9 36c-1.7-7.2 1.4-12 4-14 4-3 8-4 13-4h12c5 0 9 1 13 4 2.6 2 5.2 6.8 4 14-1 5-4 10-11 10H20c-7 0-10-5-11-10z"
+              fill="url(#g1)" opacity="0.95" />
+            <!-- left stick -->
+            <circle cx="20" cy="30" r="3.2" fill="#071626"/>
+            <!-- right stick -->
+            <circle cx="44" cy="30" r="3.2" fill="#071626"/>
+            <!-- buttons -->
+            <circle cx="50" cy="24" r="2.4" fill="#fff" opacity="0.06"/>
+            <circle cx="54" cy="30" r="2.4" fill="#fff" opacity="0.06"/>
+            <circle cx="50" cy="36" r="2.4" fill="#fff" opacity="0.06"/>
+            <circle cx="46" cy="30" r="2.4" fill="#fff" opacity="0.06"/>
+            <!-- D-pad -->
+            <rect x="12" y="22.5" width="1.8" height="6" rx="0.9" transform="rotate(45 12 25)" fill="#fff" opacity="0.06"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="brand-title">
+        <div class="top">Eagle_RIYAN</div>
+        <div class="sub">Gamer • Robotics • Coding</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <button class="nav-btn" onclick="go(0)">Home</button>
+    <button class="nav-btn" onclick="go(1)">Projects</button>
+    <button class="nav-btn" onclick="go(2)">Hobbies</button>
+    <button class="nav-btn" onclick="go(3)">Contact</button>
+  </nav>
+
+  <!-- SLIDES -->
+  <div class="viewport" aria-hidden>
+    <div class="slides" id="slides">
+      <!-- HOME -->
+      <section>
+        <div class="card">
+          <h1>Hi — I'm Eagle_RIYAN</h1>
+          <p>
+            Confident • Stylish • Competitive.<br>
+            I'm a pro at gaming and a hands-on robotics & IoT builder with strong coding skills.
+            I design projects that merge hardware, solar power, and smart automation — with a gamer’s precision.
+          </p>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section>
+        <div class="card">
+          <h1>Selected Projects</h1>
+
+          <div class="project-list">
+            <div class="project">
+              <div class="dot"></div>
+              <div>
+                <strong>Smart Solar-Powered Insect Trap</strong><br>
+                IoT + Solar: pheromone lure + IR & light sensing, energy-managed solar charge, LoRa/ESP-based telemetry for remote field monitoring, data logging for pest pattern analysis.
+              </div>
+            </div>
+
+            <div class="project">
+              <div class="dot"></div>
+              <div>
+                <strong>Smart Dustbin</strong><br>
+                Ultrasonic lid automation, fill-level sensing with IoT push notifications, schedule-based compaction suggestion, and route optimization for waste collection.
+              </div>
+            </div>
+
+            <div class="project">
+              <div class="dot"></div>
+              <div>
+                <strong>Smart Irrigation System</strong><br>
+                Multi-sensor soil-moisture + DHT11 + light sensor control, adaptive watering algorithms to save water, remote dashboard, and solar-powered pump integration.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOBBIES -->
+      <section>
+        <div class="card">
+          <h1>Hobbies & Interests</h1>
+          <p>Gaming is my zone — quick reflexes and strategic thinking translate into my robotics work. I also play football, cricket, and swim regularly.</p>
+
+          <div class="hobbies" role="list">
+            <div class="hobby" role="listitem"><div class="h-emoji">🎮</div><div>Gaming</div></div>
+            <div class="hobby" role="listitem"><div class="h-emoji">⚽</div><div>Football</div></div>
+            <div class="hobby" role="listitem"><div class="h-emoji">🏏</div><div>Cricket</div></div>
+            <div class="hobby" role="listitem"><div class="h-emoji">🏊‍♂️</div><div>Swimming</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section>
+        <div class="card">
+          <h1>Contact</h1>
+          <p>Want to collaborate or connect? Reach out 👇</p>
+
+          <div class="contact-list">
+            <div class="contact-item">📧 <a href="mailto:kattayankashyap5@gmail.com">kattayankashyap5@gmail.com</a></div>
+            <div class="contact-item">📸 <a href="https://instagram.com/riyan_elevated" target="_blank">@riyan_elevated</a></div>
+            <div class="contact-item">💬 Discord: <strong>Eagle~RIYAN</strong></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- MUSIC CONTROL -->
+  <button class="music-control" id="musicBtn" aria-pressed="false" title="Play / Pause music">▶️</button>
+
+  <!-- tiny footer -->
+  <div class="footer-note">Built by Eagle_RIYAN • Neon theme • Energetic Techno</div>
+
+  <!-- AUDIO (energetic techno sample) -->
+  <audio id="bg" loop>
+    <!-- This is a royalty-free energetic techno / synth beat (hosted public file). Replace the src if you have preferred track. -->
+    <source src="https://cdn.pixabay.com/download/audio/2021/10/25/audio_3b6aa0d7e4.mp3?filename=energetic-techno-loop-121645.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+<script>
+  // slide navigation
+  const slides = document.getElementById('slides');
+  let idx = 0;
+  function go(n){
+    idx = Math.max(0, Math.min(3, n));
+    slides.style.transform = `translateX(-${idx * 100}vw)`;
+  }
+
+  // keyboard left/right
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight') go(idx+1);
+    if(e.key === 'ArrowLeft') go(idx-1);
+  });
+
+  // music play/pause
+  const bg = document.getElementById('bg');
+  const mBtn = document.getElementById('musicBtn');
+  let playing = false;
+
+  mBtn.addEventListener('click', async () => {
+    try {
+      if(!playing){
+        await bg.play();
+        mBtn.textContent = '⏸️';
+        mBtn.setAttribute('aria-pressed','true');
+      } else {
+        bg.pause();
+        mBtn.textContent = '▶️';
+        mBtn.setAttribute('aria-pressed','false');
+      }
+      playing = !playing;
+    } catch(err){
+      console.warn('autoplay blocked or error', err);
+    }
+  });
+
+  // small UX: pause music when user navigates away
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden && playing){ bg.pause(); mBtn.textContent='▶️'; playing=false; mBtn.setAttribute('aria-pressed','false'); }
+  });
+
+  // start at home
+  go(0);
+</script>
+</body>
+</html>
