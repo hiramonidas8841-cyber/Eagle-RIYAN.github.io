@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eagle_RIYAN</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family:'Poppins',sans-serif;
+      background:#050505;
+      color:#00bfff;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .container {
+      width:90%;
+      max-width:1000px;
+      text-align:center;
+      position:relative;
+    }
+    .logo {
+      font-size:2rem;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      margin-bottom:20px;
+      color:#00bfff;
+      text-shadow:0 0 15px #00bfff;
+    }
+    .logo svg {
+      width:50px;
+      filter:drop-shadow(0 0 10px #00bfff);
+    }
+    nav {
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      margin-bottom:30px;
+    }
+    button {
+      background:none;
+      border:1px solid #00bfff;
+      color:#00bfff;
+      padding:10px 20px;
+      border-radius:25px;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:1rem;
+    }
+    button:hover {
+      background:#00bfff;
+      color:#000;
+      box-shadow:0 0 20px #00bfff;
+    }
+    .slide {
+      display:none;
+      animation:fade 0.8s;
+    }
+    .active {display:block;}
+    @keyframes fade {from{opacity:0;} to{opacity:1;}}
+    #musicBtn {
+      position:absolute;
+      bottom:20px;
+      right:20px;
+      background:none;
+      border:1px solid #00bfff;
+      color:#00bfff;
+      border-radius:50%;
+      width:50px;
+      height:50px;
+      font-size:1.2rem;
+    }
+    #musicBtn:hover {
+      background:#00bfff;
+      color:#000;
+      box-shadow:0 0 20px #00bfff;
+    }
+    footer {
+      position:absolute;
+      bottom:10px;
+      left:0;
+      width:100%;
+      text-align:center;
+      font-size:0.8rem;
+      color:#00bfff;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/23/audio_33b1a4b597.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 12h20M12 2v20M8 8l8 8M8 16l8-8" />
+      </svg>
+      <span>Eagle_RIYAN</span>
+    </div>
+
+    <nav>
+      <button onclick="showSlide(0)">Home</button>
+      <button onclick="showSlide(1)">Projects</button>
+      <button onclick="showSlide(2)">Hobbies</button>
+      <button onclick="showSlide(3)">Contact</button>
+    </nav>
+
+    <div class="slides">
+      <div class="slide active" id="home">
+        <h1>Hey, I'm <span style="color:#fff;">Eagle_RIYAN</span></h1>
+        <p>Confident. Stylish. A gamer, robotics enthusiast, and coding expert.</p>
+      </div>
+
+      <div class="slide" id="projects">
+        <h2>My Projects</h2>
+        <p>🔋 Smart Solar-Powered Insect Trap — IoT + Solar sensors</p>
+        <p>🗑️ Smart Dustbin — Ultrasonic + IoT hygiene system</p>
+        <p>💧 Smart Irrigation — Automated moisture-based irrigation</p>
+      </div>
+
+      <div class="slide" id="hobbies">
+        <h2>Hobbies</h2>
+        <p>🎮 Gaming &nbsp; ⚽ Football &nbsp; 🏏 Cricket &nbsp; 🏊 Swimming</p>
+      </div>
+
+      <div class="slide" id="contact">
+        <h2>Contact</h2>
+        <p>📧 kattayankashyap5@gmail.com</p>
+        <p>📸 Instagram: <a href="https://instagram.com/riyan_elevated" target="_blank" style="color:#00bfff;">@riyan_elevated</a></p>
+        <p>💬 Discord: Eagle~RIYAN</p>
+      </div>
+    </div>
+
+    <button id="musicBtn">▶</button>
+    <footer>© 2025 Eagle_RIYAN</footer>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    function showSlide(n) {
+      slides.forEach(s => s.classList.remove('active'));
+      slides[n].classList.add('active');
+    }
+
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    music.volume = 0.6;
+    let playing = false;
+
+    musicBtn.addEventListener('click', () => {
+      if (!playing) {
+        music.play();
+        musicBtn.textContent = '⏸';
+        playing = true;
+      } else {
+        music.pause();
+        musicBtn.textContent = '▶';
+        playing = false;
+      }
+    });
+  </script>
+</body>
+</html>
