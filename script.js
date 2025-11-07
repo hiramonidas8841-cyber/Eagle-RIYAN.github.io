@@ -1,12 +1,22 @@
-const music = document.getElementById('bg-music');
-const btn = document.getElementById('music-btn');
+const slides = document.querySelectorAll('.slide');
+function showSlide(n) {
+  slides.forEach(s => s.classList.remove('active'));
+  slides[n].classList.add('active');
+}
 
-btn.addEventListener('click', () => {
-  if (music.paused) {
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+music.volume = 0.6;
+let playing = false;
+
+musicBtn.addEventListener('click', () => {
+  if (!playing) {
     music.play();
-    btn.textContent = '⏸ Pause Music';
+    musicBtn.textContent = '⏸';
+    playing = true;
   } else {
     music.pause();
-    btn.textContent = '▶ Play Music';
+    musicBtn.textContent = '▶';
+    playing = false;
   }
 });
